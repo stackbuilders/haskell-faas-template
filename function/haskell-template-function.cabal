@@ -1,0 +1,34 @@
+cabal-version: 2.2
+
+name: haskell-template-function
+version: 0.1.0.0
+
+common common
+  build-depends:
+      base >= 4.12
+  default-language: Haskell2010
+  ghc-options: -Wall
+
+library
+  import: common
+  hs-source-dirs: src
+  exposed-modules: Handler
+  build-depends:
+      aeson >= 1.5.6.0,
+      text >= 1.2.4.1,
+      bytestring >= 0.10.12.0,
+      wai >= 3.2.3
+
+test-suite spec
+  import: common
+  type: exitcode-stdio-1.0
+  hs-source-dirs: test
+  main-is: Spec.hs
+  other-modules:
+      HandlerSpec
+  build-depends:
+      hspec >= 2.7,
+      haskell-template-function
+  build-tool-depends:
+      hspec-discover:hspec-discover
+
