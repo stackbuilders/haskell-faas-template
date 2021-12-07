@@ -17,10 +17,9 @@ data Message = Message
 
 instance ToJSON Message
 
-type EnvContext = [(String, String)]
 type ReqBody = ByteString
 
-handle :: EnvContext -> Request -> ReqBody -> IO Message
+handle :: Request -> ReqBody -> IO Message
 handle _ _ bs = do
   if LBS.null bs
      then error "Empty payload"

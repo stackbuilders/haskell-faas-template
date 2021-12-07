@@ -28,6 +28,7 @@ test-suite spec
       HandlerSpec
   build-depends:
       hspec >= 2.7,
+      wai,
       haskell-template-function
   build-tool-depends:
       hspec-discover:hspec-discover
