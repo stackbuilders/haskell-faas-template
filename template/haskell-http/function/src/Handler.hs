@@ -20,7 +20,7 @@ instance ToJSON Message
 type ReqBody = ByteString
 
 handle :: Request -> ReqBody -> IO Message
-handle _ _ bs = do
+handle _ bs = do
   if LBS.null bs
      then error "Empty payload"
      else return $ either errorResponse successResponse (fromByteString bs)
