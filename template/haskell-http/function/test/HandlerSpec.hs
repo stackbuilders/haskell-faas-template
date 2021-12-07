@@ -5,11 +5,13 @@ module HandlerSpec where
 import Handler ( Message(statusCode, Message), handle )
 import Test.Hspec
 
+
 import Network.Wai
 
 spec :: Spec
 spec =
-  context "when the string is a valid UTF-8" $
+  describe "handle" $ do
+    context "when the string is a valid UTF-8" $
       it "returns a valid Message with status code 200 " $
         handle defaultRequest "TestString" `shouldReturn` Message 200 "TestString"
 
@@ -20,4 +22,3 @@ spec =
     context "when the input is empty" $
       it "throws an exception" $
         handle defaultRequest "" `shouldThrow` errorCall "Empty payload"
-
