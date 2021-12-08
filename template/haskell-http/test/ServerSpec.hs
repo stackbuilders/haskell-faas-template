@@ -11,8 +11,6 @@ spec = with (S.scottyApp app) $ do
   describe "POST /" $ do
     context "when the input is non-empty" $
       it "responds with 200" $ do
-        post "/" "foo" `shouldRespondWith` 200
+        post "/" "foo" `shouldRespondWith` "message"
 
-    context "when the input is empty" $
-      it "responds with 500" $ do
-        post "/" "" `shouldRespondWith` 500
+
