@@ -15,8 +15,6 @@ import Control.Monad.IO.Class (liftIO)
 
 import Network.HTTP.Types.Status
 
-import System.Environment (lookupEnv)
-import Data.Maybe
 
 
 server :: Int -> IO ()
@@ -40,10 +38,6 @@ app =
                 , Handler (\(ex :: SomeException) -> return (Left $ show ex))
                 ]
 
-getEnvironment :: String -> String -> IO (String, String)
-getEnvironment varname defvalue = (varname,) . fromMaybe defvalue <$> lookupEnv varname
 
-envList :: [(String, String)]
-envList = [("HOSTNAME", "localhost"), ("TEST","DEFAULT")]
 
 
