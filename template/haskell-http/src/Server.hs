@@ -46,5 +46,4 @@ getEnvironment varname defvalue = (varname,) . fromMaybe defvalue <$> lookupEnv 
 envList :: [(String, String)]
 envList = [("HOSTNAME", "localhost"), ("TEST","DEFAULT")]
 
---getContext :: IO [(String, String)]
---getContext = mapM (uncurry getEnvironment) envList
+
