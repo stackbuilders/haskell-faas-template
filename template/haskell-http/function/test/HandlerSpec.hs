@@ -21,7 +21,3 @@ spec =
     context "when the input is empty" $
       it "throws an exception" $
         handle defaultRequest "" `shouldThrow` errorCall "Empty payload"
-
-
-
- 
