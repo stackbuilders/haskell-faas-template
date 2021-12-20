@@ -17,11 +17,10 @@ data Message = Message
 
 instance ToJSON Message
 
-type EnvContext = [(String, String)]
 type ReqBody = ByteString
 
-handle :: EnvContext -> Request -> ReqBody -> IO Message
-handle _ _ bs = do
+handle :: Request -> ReqBody -> IO Message
+handle _ bs = do
   if LBS.null bs
      then error "Empty payload"
      else return $ either errorResponse successResponse (fromByteString bs)
