@@ -9,17 +9,12 @@ import Data.Text.Encoding.Error ( UnicodeException (..))
 import Data.ByteString.Lazy (ByteString)
 import qualified Data.ByteString.Lazy as LBS
 import Network.Wai
+import qualified Text.PrettyPrint as T
 
-data Message = Message 
-  { statusCode :: Int
-  , content :: T.Text 
-  } deriving (Show, Eq, Generic)
-
-instance ToJSON Message
 
 type ReqBody = ByteString
 
-handle :: Request -> ReqBody -> IO Message
+handle :: Request -> ReqBody -> IO T.Text 
 handle _ bs = do
   if LBS.null bs
      then error "Empty payload"
@@ -28,11 +23,8 @@ handle _ bs = do
 fromByteString :: ByteString -> Either UnicodeException T.Text
 fromByteString = decodeUtf8' . LBS.toStrict
 
-toDecodeError :: UnicodeException -> T.Text
-toDecodeError = T.pack . show
+errorResponse :: UnicodeException -> T.Text
+errorResponse a = "Error"
 
-errorResponse :: UnicodeException -> Message
-errorResponse a = Message { statusCode = 500, content = toDecodeError a }
-
-successResponse :: T.Text -> Message
-successResponse a = Message { statusCode = 200, content = a }
+successResponse :: T.Text -> T.Text
+successResponse a = "OK"
