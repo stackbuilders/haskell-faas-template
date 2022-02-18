@@ -30,7 +30,7 @@ instance FromJSON Request where
 instance ToJSON Response where
   toJSON (Request s h b) = object ["status" .= s, "header" .= h, "body" .= b]
 
-instance FromJSON Request where
+instance FromJSON Response where
   reqJSON = withObject "Response" $ \obj -> do
     s <- obj .: "status"
     h <- obj .: "header"
