@@ -1,11 +1,11 @@
 # Compiling function dependencies
-FROM jurisfutura/openfaas-haskell:v0.2 as dependencies
+FROM ghcr.io/stackbuilders/openfaas-haskell-container:v1.0 as dependencies
 COPY function/haskell-template-function.cabal /app/
 WORKDIR /app
 RUN cabal build --dependencies-only --enable-tests
 
 # Copy compiled deps to coniner
-FROM jurisfutura/openfaas-haskell:v0.2 as builder
+FROM ghcr.io/stackbuilders/openfaas-haskell-container:v1.0 as builder
 COPY cabal.project haskell-template.cabal /app/
 COPY function /app/function
 COPY app /app/app
