@@ -15,6 +15,7 @@ library
   hs-source-dirs: src
   exposed-modules: Server
   build-depends:
+    haskell-faas-lib,
     haskell-template-function,
     bytestring >= 0.10.12.0,
     text >= 1.2.4.1,
