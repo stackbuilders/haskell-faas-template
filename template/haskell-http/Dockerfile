@@ -10,7 +10,7 @@ COPY cabal.project haskell-template.cabal /app/
 COPY function /app/function
 COPY app /app/app
 COPY src /app/src
-COPY lib ../../lib
+COPY lib /lib
 
 COPY --from=dependencies /app/dist-newstyle /app/dist-newstyle
 COPY --from=dependencies /root/.cabal /root/.cabal
