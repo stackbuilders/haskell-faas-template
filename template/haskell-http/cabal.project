@@ -1,4 +1,4 @@
 packages:
   ./
   ./function/
-  ./lib/
+  ./lib/haskell-faas-lib

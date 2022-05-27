@@ -17,8 +17,6 @@ COPY --from=dependencies /root/.cabal /root/.cabal
 
 WORKDIR /app
 
-RUN ls
-
 ARG TEST_ENABLED=true
 RUN if [ "$TEST_ENABLED" = "true" ]; then \
     cabal run spec;\
