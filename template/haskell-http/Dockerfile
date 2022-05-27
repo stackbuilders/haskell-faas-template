@@ -10,6 +10,9 @@ COPY cabal.project haskell-template.cabal /app/
 COPY function /app/function
 COPY app /app/app
 COPY src /app/src
+RUN ls
+RUN ls ..
+RUN ls ../..
 COPY lib /lib
 
 COPY --from=dependencies /app/dist-newstyle /app/dist-newstyle
@@ -18,6 +21,8 @@ COPY --from=dependencies /root/.cabal /root/.cabal
 WORKDIR /app
 
 RUN ls
+RUN ls ..
+RUN ls ../..
 
 ARG TEST_ENABLED=true
 RUN if [ "$TEST_ENABLED" = "true" ]; then \
