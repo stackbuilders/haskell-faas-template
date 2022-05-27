@@ -4,12 +4,13 @@ COPY function/haskell-template-function.cabal /app/
 WORKDIR /app
 RUN cabal build --dependencies-only --enable-tests
 
-# Copy compiled deps to coniner
+# Copy compiled deps to container
 FROM ghcr.io/stackbuilders/openfaas-haskell-container:v1.0 as builder
 COPY cabal.project haskell-template.cabal /app/
 COPY function /app/function
 COPY app /app/app
 COPY src /app/src
+COPY lib ../../lib
 
 COPY --from=dependencies /app/dist-newstyle /app/dist-newstyle
 COPY --from=dependencies /root/.cabal /root/.cabal
