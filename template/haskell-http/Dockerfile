@@ -10,10 +10,7 @@ COPY cabal.project haskell-template.cabal /app/
 COPY function /app/function
 COPY app /app/app
 COPY src /app/src
-RUN ls
-RUN ls ..
-RUN ls ../..
-COPY lib /lib
+COPY lib /app/lib
 
 COPY --from=dependencies /app/dist-newstyle /app/dist-newstyle
 COPY --from=dependencies /root/.cabal /root/.cabal
@@ -24,12 +21,12 @@ RUN ls
 RUN ls ..
 RUN ls ../..
 
-ARG TEST_ENABLED=true
-RUN if [ "$TEST_ENABLED" = "true" ]; then \
-    cabal run spec;\
-    else \
-    echo 'Skipped tests'; \
-    fi
+# ARG TEST_ENABLED=true
+# RUN if [ "$TEST_ENABLED" = "true" ]; then \
+#     cabal run spec;\
+#     else \
+#     echo 'Skipped tests'; \
+#     fi
 
 RUN rm -f ~/.ssh/id_rsa ~/.ssh/id_rsa.pub
 
