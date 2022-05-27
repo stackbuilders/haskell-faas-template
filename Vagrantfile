@@ -10,9 +10,6 @@ cd faas-netes
 microk8s kubectl apply -f ./namespaces.yml
 microk8s kubectl apply -f ./yaml
 docker run -d -p 5000:5000  --restart=always --name registry registry:2
-microk8s kubectl -n openfaas create secret generic basic-auth --from-literal=basic-auth-user=admin --from-literal=basic-auth-password=123
-microk8s kubectl --namespace openfaas scale --replicas=0 deploy/gateway
-microk8s kubectl --namespace openfaas scale --replicas=1 deploy/gateway
 SCRIPT
 
 Vagrant.configure("2") do |config|
