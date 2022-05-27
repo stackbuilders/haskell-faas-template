@@ -14,24 +14,7 @@ COPY src /app/src
 COPY --from=dependencies /app/dist-newstyle /app/dist-newstyle
 COPY --from=dependencies /root/.cabal /root/.cabal
 
-ARG ssh_prv_key
-ARG ssh_pub_key
-RUN if [ "$ssh_prv_key" = "" -o "$ssh_pub_key" = "" ]; then \
-    echo 'Keys not provided';\
-    else \
-    # Authorize SSH Host
-    mkdir -p ~/.ssh && \
-    chmod 0700 ~/.ssh && \
-    ssh-keyscan github.com > ~/.ssh/known_hosts \
-    # Add the keys and set permissions
-    echo "$ssh_prv_key" > ~/.ssh/id_rsa && \
-    echo "$ssh_pub_key" > ~/.ssh/id_rsa.pub && \
-    chmod 600 ~/.ssh/id_rsa && \
-    chmod 600 ~/.ssh/id_rsa.pub;\
-    fi
-
 WORKDIR /app
-RUN cabal build haskell-template-server
 
 ARG TEST_ENABLED=true
 RUN if [ "$TEST_ENABLED" = "true" ]; then \
