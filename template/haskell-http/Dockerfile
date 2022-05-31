@@ -23,7 +23,7 @@ RUN if [ "$TEST_ENABLED" = "true" ]; then \
     echo 'Skipped tests'; \
     fi
 
-RUN rm -f ~/.ssh/id_rsa ~/.ssh/id_rsa.pub
+RUN cabal build
 
 RUN mkdir /app/bin && mv $(cabal list-bin haskell-template-server) /app/bin/
 
