@@ -3,35 +3,32 @@
 set -e
 
 function install_microk8s () {
-  # Install microk8s
   sudo snap install microk8s --classic
 
-  # Start the service with all modules enabled
+  # After installing, it is needed to enable 
+  # the needed modules and start the service
   microk8s status --wait-ready
   microk8s enable dns dashboard storage registry
   microk8s start
 }
 
 function microk8s_permissions () {
-  # Add all the necessary packages and permissions to use microk8s
+  # To avoid the permission insuficience, 
+  # is recommended to run the following commands
   sudo usermod -a -G microk8s vagrant
   sudo chown -f -R vagrant ~/.kube
   newgrp microk8s
 }
 
-function install_openfaas () {
-  # Install openfaas-cli
+function install_openfaas_cli () {
   curl -sSL https://cli.openfaas.com | sudo -E sh
 }
 
-function clone_faasnetes () {
-  # Clone the faasnetes git repo in order to create the functions
-  git clone https://github.com/openfaas/faas-netes
-  cd faas-netes
-}
-
 function openfaas_namespaces () {
-  # Create the OpenFaaS namespaces for the functions
+  git clone https://github.com/openfaas/faas-netes
+
+  # Create the OpenFaaS namespaces in order to build the functions
+  cd faas-netes
   microk8s kubectl apply -f ./namespaces.yml
   microk8s kubectl apply -f ./yaml
 }
@@ -43,7 +40,6 @@ function create_registry () {
 
 install_microk8s
 microk8s_permissions
-install_openfaas
-clone_faasnetes
+install_openfaas_cli
 openfaas_namespaces
 create_registry
